@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>JOIN SQL</h2>
+    <p>Joins are used to select matching values from two tables.</p>
+    <p><strong>Syntax:</strong></p>
+    <pre>
+        <code>
+            SELECT a.columnX, b.columnY
+            FROM TableA a
+            JOIN TableB b
+            ON a.columnZ = b.columnT
+        </code>
+    </pre>
+    <ul>
+      <li>
+        <code>columnX</code> and <code>columnZ</code> are any columns from
+        <code>TableA</code>.
+      </li>
+      <li>
+        <code>columnY</code> and <code>columnT</code> are any columns from
+        <code>TableB</code>.
+      </li>
+      <li>
+        If the <code>ON</code> clause compares columns of different data types,
+        an implicit conversion will occur, or an error will be thrown if strict
+        mode is enabled in some database management systems.
+      </li>
+      <li>
+        <strong>Example:</strong> <code>ON a.Age = b.FullName</code> (Both
+        <code>Age</code> and <code>FullName</code> are converted to strings for
+        comparison).
+      </li>
+    </ul>
+    <p>There are four types of joins:</p>
+    <ul>
+      <li>Inner Join</li>
+      <li>Left Join</li>
+      <li>Right Join</li>
+      <li>Full Join</li>
+    </ul>
+    <p>
+      <strong>Note:</strong> A self join is a type of join where a table is
+      joined with itself using the same syntax as for other joins (e.g., Inner
+      Join, Left Join, Right Join, Full Join).
+    </p>
+    <a href="/sql-join/inner-join.html">INNER JOIN</a> <br />
+    <a href="/sql-join/left-join.html">LEFT JOIN</a> <br />
+    <a href="/sql-join/right-join.html">RIGHT JOIN</a> <br />
+    <a href="/sql-join/full-join.html">FULL JOIN</a> <br />
+    <a href="/sql-join/example.html">EXAMPLE</a> <br />
+  </body>
+</html>

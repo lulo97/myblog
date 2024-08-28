@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>INNER JOIN</h2>
+    <p>
+      Given two tables, A and B, inner join between A and B return a list of
+      rows that satisfy the "ON" clause.
+    </p>
+    <p>
+        INNER JOIN is both commutative and associative. (This is not true for other types of joins.)<br>
+        Example of commutativity: <code>(a INNER JOIN b) = (b INNER JOIN a)</code><br>
+        Example of associativity: <code>((a INNER JOIN b) INNER JOIN c) = (a INNER JOIN (b INNER JOIN c))</code>
+    </p>
+    
+    <p><strong>Syntax:</strong></p>
+    <pre>
+        <code>
+            SELECT a.columnX, b.columnY
+            FROM TableA a
+            INNER JOIN TableB b
+            ON a.columnZ = b.columnT
+        </code>
+    </pre>
+    <ul>
+      <li>
+        <code>columnX</code> and <code>columnZ</code> are any columns from
+        <code>TableA</code>.
+      </li>
+      <li>
+        <code>columnY</code> and <code>columnT</code> are any columns from
+        <code>TableB</code>.
+      </li>
+      <li>
+        The <code>INNER JOIN</code> syntax is the same as
+        <code>JOIN</code> syntax.
+      </li>
+      <li>
+        The total number of rows in the result can be less than total number of
+        rows i the joined tables.
+      </li>
+    </ul>
+    <p>
+      Example: Suppose we have a table called <code>Employees</code> (with
+      columns <code>EmployeeId</code> and <code>Name</code>) and a table called
+      <code>Tasks</code> (with columns <code>TaskId</code>,
+      <code>EmployeeId</code>, and <code>Name</code>). We want to join
+      <code>Employees</code> with <code>Tasks</code> so that all employees who
+      have tasks and all tasks that are assigned to an employee are included.
+    </p>
+    <p>
+        <strong>Table: Employees</strong><br>
+        <table border="1">
+            <tr>
+                <th>EmployeeId</th>
+                <th>Name</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Alice</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Bob</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Carol</td>
+            </tr>
+        </table>
+    </p>
+    <p>
+        <strong>Table: Tasks</strong><br>
+        <table border="1">
+            <tr>
+                <th>TaskId</th>
+                <th>EmployeeId</th>
+                <th>Name</th>
+            </tr>
+            <tr>
+                <td>101</td>
+                <td>1</td>
+                <td>Task A</td>
+            </tr>
+            <tr>
+                <td>102</td>
+                <td>2</td>
+                <td>Task B</td>
+            </tr>
+            <tr>
+                <td>103</td>
+                <td>4</td>
+                <td>Task C</td>
+            </tr>
+        </table>
+    </p>
+    <p>
+      <code>
+        SELECT e.Name, t.Name<br />
+        FROM Employees e<br />
+        JOIN Tasks t<br />
+        ON e.EmployeeId = t.EmployeeId
+      </code>
+    </p>
+    <p>
+        <strong>Result of INNER JOIN:</strong><br>
+        <table border="1">
+            <tr>
+                <th>EmployeeName</th>
+                <th>TaskName</th>
+            </tr>
+            <tr>
+                <td>Alice</td>
+                <td>Task A</td>
+            </tr>
+            <tr>
+                <td>Bob</td>
+                <td>Task B</td>
+            </tr>
+        </table>
+    </p>
+    <p>If using LEFT JOIN, RIGHT JOIN we will have result table with 3 rows. Using FULL JOIN will have table with 4 rows. Only INNER JOIN will result 2 rows table.</p>
+  </body>
+</html>

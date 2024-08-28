@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join Types Example</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      h3 {
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Different number of rows return based on different type of joins</h1>
+
+    <p>Consider the following tables:</p>
+
+    <h3>Table: Employees</h3>
+    <table>
+      <tr>
+        <th>EmployeeId</th>
+        <th>Name</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Alice</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Bob</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Carol</td>
+      </tr>
+    </table>
+
+    <h3>Table: Tasks</h3>
+    <table>
+      <tr>
+        <th>TaskId</th>
+        <th>EmployeeId</th>
+        <th>TaskName</th>
+      </tr>
+      <tr>
+        <td>101</td>
+        <td>1</td>
+        <td>Task A</td>
+      </tr>
+      <tr>
+        <td>102</td>
+        <td>2</td>
+        <td>Task B</td>
+      </tr>
+      <tr>
+        <td>103</td>
+        <td>2</td>
+        <td>Task C</td>
+      </tr>
+      <tr>
+        <td>104</td>
+        <td>4</td>
+        <td>Task D</td>
+      </tr>
+    </table>
+
+    <h3>Results of Different Joins</h3>
+
+    <h4>1. INNER JOIN</h4>
+    <p>
+      An <code>INNER JOIN</code> returns only the rows where there is a match
+      between the two tables.
+    </p>
+    <table>
+      <tr>
+        <th>EmployeeName</th>
+        <th>TaskName</th>
+      </tr>
+      <tr>
+        <td>Alice</td>
+        <td>Task A</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>Task B</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>Task C</td>
+      </tr>
+    </table>
+    <p><strong>Number of Rows:</strong> 3</p>
+
+    <h4>2. LEFT JOIN</h4>
+    <p>
+      A <code>LEFT JOIN</code> returns all rows from the left table, with
+      matching rows from the right table. If there is no match, the result is
+      <code>NULL</code> on the right side.
+    </p>
+    <table>
+      <tr>
+        <th>EmployeeName</th>
+        <th>TaskName</th>
+      </tr>
+      <tr>
+        <td>Alice</td>
+        <td>Task A</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>Task B</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>Task C</td>
+      </tr>
+      <tr>
+        <td>Carol</td>
+        <td>NULL</td>
+      </tr>
+    </table>
+    <p><strong>Number of Rows:</strong> 4</p>
+
+    <h4>3. RIGHT JOIN</h4>
+    <p>
+      A <code>RIGHT JOIN</code> returns all rows from the right table, with
+      matching rows from the left table. If there is no match, the result is
+      <code>NULL</code> on the left side.
+    </p>
+    <table>
+      <tr>
+        <th>EmployeeName</th>
+        <th>TaskName</th>
+      </tr>
+      <tr>
+        <td>Alice</td>
+        <td>Task A</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>Task B</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>Task C</td>
+      </tr>
+      <tr>
+        <td>NULL</td>
+        <td>Task D</td>
+      </tr>
+    </table>
+    <p><strong>Number of Rows:</strong> 4</p>
+
+    <h4>4. FULL JOIN</h4>
+    <p>
+      A <code>FULL JOIN</code> returns all rows when there is a match in one of
+      the tables. It combines the results of both <code>LEFT JOIN</code> and
+      <code>RIGHT JOIN</code>.
+    </p>
+    <table>
+      <tr>
+        <th>EmployeeName</th>
+        <th>TaskName</th>
+      </tr>
+      <tr>
+        <td>Alice</td>
+        <td>Task A</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>Task B</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>Task C</td>
+      </tr>
+      <tr>
+        <td>Carol</td>
+        <td>NULL</td>
+      </tr>
+      <tr>
+        <td>NULL</td>
+        <td>Task D</td>
+      </tr>
+    </table>
+    <p><strong>Number of Rows:</strong> 5</p>
+  </body>
+</html>
