@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #333;
+      }
+      code {
+        background-color: #f4f4f4;
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+      .example {
+        background-color: #f9f9f9;
+        border-left: 2px solid #ddd;
+        padding: 10px;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <section class="section">
+        <h2>Type Safety and Type Soundness</h2>
+        <p>
+          Type safety and type soundness refer to the extent to which a
+          programming language discourages or prevents type errors.
+        </p>
+        <p>
+          Type safety là mức độ mà một ngôn ngữ lập trình không khuyến
+          khích/không cho phép các lỗi kiểu dữ liệu.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Examples of Type Safety</h2>
+        <div class="example">
+          <h3>Strongly Typed: Java</h3>
+          <pre><code>int number = 5;
+String text = "hello";
+//Error</code></pre>
+        </div>
+        <div class="example">
+          <h3>Weakly Typed: JavaScript</h3>
+          <pre><code>let result = "5" + 2; //Result = 52
+let sum = "5" - 2; //Result = 3</code></pre>
+        </div>
+      </section>
+
+      <div>
+        Type safety is not the same as static/dynamic typing or strong/weak
+        typing.
+      </div>
+    </div>
+    <div>
+      <h2>Static vs Dynamic typing</h2>
+      <p>
+        Type safety means that if a data item has type <code>X</code> and
+        <code>X</code> doesn't support operation <code>y</code>, then a
+        type-safe language can't perform <code>y(X)</code>. This can be checked
+        in different ways:
+      </p>
+      <ul>
+        <li>
+          If the rule is checked at compile time, then it is a static typing
+          language (static typing is equivalent to type safety at compile time).
+        </li>
+        <li>
+          If the rule is checked at runtime, then it is a dynamic typing
+          language (dynamic typing is equivalent to type safety at runtime).
+        </li>
+        <li>Some languages check the rule at both compile time and runtime.</li>
+      </ul>
+
+      <h3>Example of Type Safety Issue</h3>
+      <p>
+        Consider the following Java code, which can compile but may result in a
+        type error at runtime:
+      </p>
+      <div class="example">
+        <code>Object obj = "I am a string";</code><br />
+        <code
+          >Consumer&lt;String&gt; consumer = (Consumer&lt;String&gt;) obj;</code
+        >
+      </div>
+      <p>In this example:</p>
+      <ul>
+        <li>
+          The compiler doesn't know that <code>obj</code> is actually a
+          <code>String</code>; it only knows that an <code>Object</code> can be
+          cast to any type (in this case, <code>Object</code> is cast to
+          <code>Consumer&lt;String&gt;</code>).
+        </li>
+        <li>
+          At runtime, the Java Virtual Machine recognizes that
+          <code>obj</code> is a <code>String</code> and attempts to cast
+          <code>String</code> to <code>Consumer&lt;String&gt;</code>, resulting
+          in a type error.
+        </li>
+      </ul>
+
+      <h2>Strong vs Weak Typing</h2>
+      <h3>Strong Typing</h3>
+      <p>
+        A strongly typed language does not allow implicit changes to data types.
+        To change a data type, explicit casting or functions are required (e.g.,
+        <code>str()</code> in Python).
+      </p>
+      <p>
+        Note: Python is considered a strongly typed language if we don't
+        strictly define strong typing, because Python allows operations like
+        <code>double + int = double</code> (e.g., <code>1.0 + 2 = 3.0</code>).
+      </p>
+
+      <h3>Weak Typing</h3>
+      <p>A weakly typed language allows implicit changes between data types.</p>
+      <p>For example, JavaScript is a weakly typed language.</p>
+    </div>
+  </body>
+</html>
