@@ -4,65 +4,53 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        margin: 20px;
-      }
-      h1,
-      h2,
-      h3 {
-        color: #333;
-      }
-      code {
-        background-color: #f4f4f4;
-        padding: 2px 4px;
-        border-radius: 4px;
-      }
-      .example {
-        background-color: #f9f9f9;
-        border-left: 2px solid #ddd;
-        padding: 10px;
-        margin: 10px 0;
-      }
-    </style>
   </head>
   <body>
-    <div class="container">
-      <section class="section">
-        <h2>Type Safety and Type Soundness</h2>
-        <p>
-          Type safety and type soundness refer to the extent to which a
-          programming language discourages or prevents type errors.
-        </p>
-        <p>
-          Type safety là mức độ mà một ngôn ngữ lập trình không khuyến
-          khích/không cho phép các lỗi kiểu dữ liệu.
-        </p>
-      </section>
+    <div class="table-of-content">
+      <h2>Table of Contents</h2>
+      <ul>
+        <li><a href="#type-safety">Type Safety</a></li>
+        <li><a href="#static-dynamic">Static Type and Dynamic Type</a></li>
+        <li><a href="#strong-weak">Strong Type and Weak Type</a></li>
+        <li><a href="#data-casting">Data Casting</a></li>
+      </ul>
+    </div>
 
-      <section class="section">
-        <h2>Examples of Type Safety</h2>
-        <div class="example">
-          <h3>Strongly Typed: Java</h3>
-          <pre><code>int number = 5;
-String text = "hello";
-//Error</code></pre>
-        </div>
-        <div class="example">
-          <h3>Weakly Typed: JavaScript</h3>
-          <pre><code>let result = "5" + 2; //Result = 52
-let sum = "5" - 2; //Result = 3</code></pre>
-        </div>
-      </section>
+    <section id="type-safety">
+      <h2>Type Safety and Type Soundness</h2>
+      <p>
+        Type safety and type soundness refer to the extent to which a
+        programming language discourages or prevents type errors.
+      </p>
+      <p>
+        Type safety là mức độ mà một ngôn ngữ lập trình không khuyến khích/không
+        cho phép các lỗi kiểu dữ liệu.
+      </p>
 
+      <h3>Examples of Type Safety</h3>
       <div>
+        <h3>Strongly Typed: Java</h3>
+        <pre><code>
+          int number = 5;
+          String text = "hello";
+          //Error
+        </code></pre>
+      </div>
+      <div>
+        <h3>Weakly Typed: JavaScript</h3>
+        <pre><code>
+          let result = "5" + 2; //Result = 52
+          let sum = "5" - 2; //Result = 3
+        </code></pre>
+      </div>
+
+      <p>
         Type safety is not the same as static/dynamic typing or strong/weak
         typing.
-      </div>
-    </div>
-    <div>
+      </p>
+    </section>
+
+    <section id="static-dynamic">
       <h2>Static vs Dynamic typing</h2>
       <p>
         Type safety means that if a data item has type <code>X</code> and
@@ -87,12 +75,10 @@ let sum = "5" - 2; //Result = 3</code></pre>
         Consider the following Java code, which can compile but may result in a
         type error at runtime:
       </p>
-      <div class="example">
-        <code>Object obj = "I am a string";</code><br />
-        <code
-          >Consumer&lt;String&gt; consumer = (Consumer&lt;String&gt;) obj;</code
-        >
-      </div>
+      <pre><code>
+        Object obj = "I am a string";
+        Consumer&lt;String&gt; consumer = (Consumer&lt;String&gt;) obj;
+      </code></pre>
       <p>In this example:</p>
       <ul>
         <li>
@@ -108,7 +94,9 @@ let sum = "5" - 2; //Result = 3</code></pre>
           in a type error.
         </li>
       </ul>
+    </section>
 
+    <section id="strong-weak">
       <h2>Strong vs Weak Typing</h2>
       <h3>Strong Typing</h3>
       <p>
@@ -125,6 +113,22 @@ let sum = "5" - 2; //Result = 3</code></pre>
       <h3>Weak Typing</h3>
       <p>A weakly typed language allows implicit changes between data types.</p>
       <p>For example, JavaScript is a weakly typed language.</p>
-    </div>
+    </section>
+
+    <section id="data-casting">
+      <h2>Data Casting</h2>
+      <p>
+        Suppose a char variable have 1 byte and a int variable have 4 byte. I
+        want to cast int to char in programming language C.
+      </p>
+      <div>
+        <pre><code>
+          int number = 300; // In binary: 00000000 00000000 00000001 00101100
+          char character = (char) number; // Only last byte is keep, 00101100 = 44 = "," in ASCII
+          printf("%c\n", character); // ","
+          printf("%d\n", character); // 44
+        </code></pre>
+      </div>
+    </section>
   </body>
 </html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recursive Queries in SQL</title>
+  </head>
+  <body>
+    <h1>Recursive Queries in SQL</h1>
+
+    <p>
+      SQL's powerful feature of recursive queries allows you to work with
+      hierarchical data.
+    </p>
+    <p>
+      Examples of hierarchical data are threaded comments, organizational
+      structures, or other nested relationships.
+    </p>
+
+    <h2>Setting Up the Database Schema</h2>
+
+    <p>
+      First, we need to create a table to hold our comments. Each comment can
+      either be a standalone comment or a reply to another comment. To represent
+      this, we use a `ParentId` column that refers back to the `Id` of the
+      comment it replies to.
+    </p>
+
+    <pre><span class="code-line">CREATE TABLE Comment (</span>
+<span class="code-line">  Id INT PRIMARY KEY,</span>
+<span class="code-line">  Content TEXT,</span>
+<span class="code-line">  ParentId INT</span>
+<span class="code-line">);</span></pre>
+
+    <p>The `Comment` table has three columns:</p>
+    <ul>
+      <li><strong>Id:</strong> A unique identifier for each comment.</li>
+      <li><strong>Content:</strong> The actual text of the comment.</li>
+      <li>
+        <strong>ParentId:</strong> A reference to the `Id` of the comment that
+        this comment is replying to. If the `ParentId` is `NULL`, it means this
+        is a top-level comment.
+      </li>
+    </ul>
+
+    <h2>Inserting Sample Data</h2>
+
+    <p>
+      Next, we insert some sample data into the `Comment` table. This data
+      represents a threaded comment structure, where some comments are replies
+      to others:
+    </p>
+
+    <pre><span class="code-line">INSERT INTO Comment (Id, Content, ParentId) VALUES (0, 'Python', NULL);</span>
+<span class="code-line">INSERT INTO Comment (Id, Content, ParentId) VALUES (1, 'Hello', NULL);</span>
+<span class="code-line">INSERT INTO Comment (Id, Content, ParentId) VALUES (2, 'World', 1);</span>
+<span class="code-line">INSERT INTO Comment (Id, Content, ParentId) VALUES (3, 'Hi', 2);</span>
+<span class="code-line">INSERT INTO Comment (Id, Content, ParentId) VALUES (4, 'Sql', NULL);</span>
+<span class="code-line">INSERT INTO Comment (Id, Content, ParentId) VALUES (5, 'Recursive', 4);</span></pre>
+
+    <p>This data creates a comment structure like the following:</p>
+    <ul>
+      <li>Python</li>
+      <li>
+        Hello
+        <ul>
+          <li>
+            World
+            <ul>
+              <li>Hi</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        Sql
+        <ul>
+          <li>Recursive</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>Using Recursive CTEs to Query Hierarchical Data</h2>
+
+    <p>
+      Now, let’s write a query to retrieve and display this hierarchical comment
+      structure. We’ll use a Common Table Expression (CTE) with recursion:
+    </p>
+
+    <pre><span class="code-line">WITH RECURSIVE RecursiveComment AS (</span>
+<span class="code-line">    SELECT Id, Content, ParentId, 1 AS Level</span>
+<span class="code-line">    FROM Comment</span>
+<span class="code-line">    WHERE ParentId IS NULL</span>
+<span class="code-line">    UNION ALL</span>
+<span class="code-line">    SELECT c.Id, c.Content, c.ParentId, rc.Level + 1</span>
+<span class="code-line">    FROM Comment c</span>
+<span class="code-line">    INNER JOIN RecursiveComment rc ON c.ParentId = rc.Id</span>
+<span class="code-line">)</span>
+<span class="code-line">SELECT * FROM RecursiveComment ORDER BY Level, ParentId;</span></pre>
+
+    <p>Let’s break this down:</p>
+    <ul>
+      <li>
+        <strong>WITH RECURSIVE RecursiveComment AS (</strong><br />
+        This line begins the definition of a recursive CTE named
+        `RecursiveComment`. CTEs allow you to create temporary result sets that
+        you can reference within a `SELECT`, `INSERT`, `UPDATE`, or `DELETE`
+        statement.
+      </li>
+
+      <li>
+        <strong
+          >SELECT Id, Content, ParentId, 1 AS Level FROM Comment WHERE ParentId
+          IS NULL</strong
+        ><br />
+        The first `SELECT` statement inside the CTE is called the anchor member.
+        It selects all comments that do not have a parent (i.e., top-level
+        comments) and assigns them a `Level` of 1.
+      </li>
+
+      <li>
+        <strong>UNION ALL</strong><br />
+        The `UNION ALL` operator combines the result of the anchor member with
+        the recursive member, which we define next. This operator is crucial in
+        recursive CTEs because it ensures that all rows are included, even
+        duplicates if they occur.
+      </li>
+
+      <li>
+        <strong
+          >SELECT c.Id, c.Content, c.ParentId, rc.Level + 1 FROM Comment c INNER
+          JOIN RecursiveComment rc ON c.ParentId = rc.Id</strong
+        ><br />
+        The recursive member of the CTE. Here, for each row in
+        `RecursiveComment` (which initially contains only the top-level
+        comments), we join the `Comment` table again to find any replies
+        (children) to these comments. For each child comment found, we increase
+        its `Level` by 1.
+      </li>
+
+      <li>
+        <strong>SELECT * FROM RecursiveComment ORDER BY Level, ParentId;</strong
+        ><br />
+        Finally, the CTE is terminated, and we perform a `SELECT` on the
+        `RecursiveComment` CTE to get the hierarchical comment structure. The
+        results are ordered by `Level` and `ParentId` to maintain the
+        hierarchical display.
+      </li>
+    </ul>
+
+    <h2>Output</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Content</th>
+          <th>ParentId</th>
+          <th>Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0</td>
+          <td>Python</td>
+          <td>null</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Hello</td>
+          <td>null</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Sql</td>
+          <td>null</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>World</td>
+          <td>1</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Recursive</td>
+          <td>4</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Hi</td>
+          <td>2</td>
+          <td>3</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+  </style>
+</html>
