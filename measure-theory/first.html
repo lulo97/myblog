@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesure theory: First</title>
+  </head>
+  <body>
+    <h1>Mesure theory: First</h1>
+
+    <div>
+      <h2>Table of content</h2>
+      <ul>
+        <li><a href="#set-section">Set</a></li>
+        <li><a href="#index-set-section">Index set</a></li>
+        <li><a href="#mesure-theory-section">Mesure theory</a></li>
+        <li><a href="#power-set-section">Power set</a></li>
+        <li><a href="#sigma-algebra-section">Sigma algebra</a></li>
+      </ul>
+    </div>
+
+    <div id="set-section">
+      <h2>Set</h2>
+      <p>Set is a collection of different things.</p>
+    </div>
+
+    <div id="index-set-section">
+      <h2>Index Set</h2>
+
+      <p>
+        <strong>Index Set:</strong> The index set <strong>I</strong> is any set
+        such that for <strong>i ∈ I</strong>, we refer to <strong>A_i</strong>,
+        which is also any set.
+      </p>
+      <p>
+        <strong>Example:</strong> If <strong>I = {1, 2, 3}</strong>, and
+        <strong>A_1 = {1, 3, 5}</strong>, <strong>A_2 = {2, 4}</strong>,
+        <strong>A_3 = {∅}</strong>.
+      </p>
+    </div>
+
+    <div id="mesure-theory-section">
+      <h2>Measure Theory</h2>
+      <p>Measure theory is a generalization and formalization of:</p>
+      <ul>
+        <li>Geometrical measures like length, volume, area</li>
+        <li>Other notations like magnitude, mass, probability of events</li>
+      </ul>
+      <p>Example: Giving a set [a, b] on R, the length is b - a</p>
+    </div>
+
+    <div id="power-set-section">
+      <h2>Power Set</h2>
+      <p>
+        <strong>Power set</strong> P(X) of a set X is a set of all subsets of X.
+      </p>
+      <p>Example: If X = {1, 2}, then P(X) = {∅, X, {1}, {2}}.</p>
+
+      <h3>Proving the Size of the Power Set</h3>
+      <p>
+        If X has n elements, then P(X) has 2<sup>n</sup> elements. Let's prove
+        it:
+      </p>
+      <ul>
+        <li>
+          If n = 0, then X = ∅. This is true for P(X) = {∅}, which has 1 = 2<sup
+            >0</sup
+          >
+          element.
+        </li>
+        <li>Let n > 0 and k > 0.</li>
+        <li>
+          Suppose n = k, then the statement is correct. Now, we need to prove it
+          for n = k + 1.
+        </li>
+        <li>
+          Let X have n = k + 1 elements, or X = {x<sub>1</sub>, x<sub>2</sub>,
+          ... , x<sub>k+1</sub>}.
+        </li>
+        <li>
+          The power set P(X) is composed of:
+          <ul>
+            <li>
+              Subsets that don't contain x<sub>k+1</sub> (denoted as
+              P<sub>1</sub>)
+            </li>
+            <li>
+              Subsets that do contain x<sub>k+1</sub> (denoted as P<sub>2</sub>)
+            </li>
+          </ul>
+        </li>
+        <li>
+          By assumption, when n = k, P<sub>1</sub> has 2<sup>k</sup> elements.
+        </li>
+        <li>
+          P<sub>2</sub> can be formed by taking each element of P<sub>1</sub>
+          and adding x<sub>k+1</sub> to it, so P<sub>2</sub> also has 2<sup
+            >k</sup
+          >
+          elements.
+        </li>
+        <li>
+          Therefore, P(X) = P<sub>1</sub> + P<sub>2</sub> has 2<sup>k</sup> +
+          2<sup>k</sup> = 2<sup>k+1</sup> elements.
+        </li>
+      </ul>
+    </div>
+
+    <div id="sigma-algebra-section">
+      <h2>Sigma Algebra of a Set</h2>
+      <p>
+        A sigma algebra of a set <strong>X</strong>, denoted <strong>F</strong>,
+        must satisfy the following:
+      </p>
+      <ul>
+        <li><strong>X ∈ F</strong></li>
+        <li>
+          <strong>Closed under complementation:</strong> Let
+          <strong>A ∈ X</strong>, then
+          <strong>X \ A = A<sup>c</sup> ∈ F</strong>
+        </li>
+        <li>
+          <strong>Closed under countable unions:</strong> Let
+          <strong>A<sub>i</sub> ∈ F</strong> with <strong>i ∈ N</strong>, then a
+          finite or infinite union of <strong>A<sub>i</sub> ∈ F</strong>
+        </li>
+      </ul>
+
+      <p>
+        Example: X = {a, b, c}, list all sigma algebras of <strong>X</strong>:
+      </p>
+      <ul>
+        <li><strong>F = {∅, X}</strong></li>
+        <li><strong>F = {∅, X, {a}, {b, c}}</strong></li>
+        <li><strong>F = {∅, X, {b}, {a, c}}</strong></li>
+        <li><strong>F = {∅, X, {c}, {a, b}}</strong></li>
+        <li><strong>F = {∅, X, {a, b}, {c}}</strong></li>
+        <li><strong>F = {∅, X, {a, c}, {b}}</strong></li>
+        <li><strong>F = {∅, X, {b, c}, {a}}</strong></li>
+        <li>
+          <strong>F = {∅, X, {a}, {b}, {c}, {a, b}, {a, c}, {b, c}}</strong>
+        </li>
+      </ul>
+
+      <p>
+        Example: Let <strong>X = {a, b, c}</strong> and
+        <strong>F = {∅, X, {a}, {b, c}}</strong>. Let's analyze why we can't
+        insert <strong>{a, b}</strong> into <strong>F</strong>:
+      </p>
+      <p>Consider inserting <strong>{a, b}</strong> to make:</p>
+      <p><strong>F = {∅, X, {a}, {b, c}, {a, b}}</strong></p>
+      <p>
+        But <strong>X \ {a, b} = {c} ∉ F</strong> &rarr; <strong>F</strong> is
+        no longer a sigma algebra.
+      </p>
+      <p>Now consider inserting <strong>{c}</strong> to make:</p>
+      <p><strong>F = {∅, X, {a}, {b, c}, {a, b}, {c}}</strong></p>
+      <p>
+        But a finite union <strong>{a} ∪ {c} = {a, c}</strong> doesn't belong to
+        <strong>F</strong> &rarr; <strong>F</strong> is no longer a sigma
+        algebra.
+      </p>
+
+      <h3>
+        Proof that the Countable Intersection of Sigma Algebras is a Sigma
+        Algebra
+      </h3>
+
+      <p>
+        Let <strong>F<sub>i</sub></strong> be sigma algebras of
+        <strong>X</strong> with <strong>i ∈ I</strong> and <strong>I</strong> is
+        an index set.<br />
+        Let <strong>F = ⋂ F<sub>i</sub></strong> with
+        <strong>i ∈ I</strong>.<br />
+        We need to prove that <strong>F</strong> is a sigma algebra.
+      </p>
+
+      <p>1. Contains X and ∅</p>
+      <p>
+        Since every <strong>F<sub>i</sub></strong> is a sigma algebra of
+        <strong>X</strong>, then <strong>X</strong> and
+        <strong>∅</strong> belong to each <strong>F<sub>i</sub></strong
+        >.<br />
+        By definition of intersection, <strong>F = ⋂ F<sub>i</sub></strong> also
+        contains <strong>X</strong> and <strong>∅</strong>.
+      </p>
+
+      <p>2. Closed under Complements</p>
+      <p>
+        Let a set <strong>A</strong> belong to <strong>F</strong>.<br />
+        This means <strong>A</strong> also belongs to every
+        <strong>F<sub>i</sub></strong
+        >.<br />
+        By definition of a sigma algebra,
+        <strong>A<sup>c</sup> = X \ A</strong> is also in every
+        <strong>F<sub>i</sub></strong
+        >.<br />
+        By definition of intersection, <strong>A<sup>c</sup></strong> is also in
+        <strong>⋂ F<sub>i</sub> = F</strong>.
+      </p>
+
+      <p>3. Closed under Countable Unions</p>
+      <p>
+        Let <strong>A<sub>1</sub>, A<sub>2</sub>, ..., A<sub>n</sub></strong> be
+        a countable set of sets inside <strong>F</strong>.<br />
+        Then
+        <strong>A<sub>1</sub>, A<sub>2</sub>, ..., A<sub>n</sub></strong> are
+        also in every <strong>F<sub>i</sub></strong
+        >.<br />
+        By definition of a sigma algebra, <strong>⋃ A<sub>i</sub></strong> with
+        <strong>i=1, n</strong> is also in each <strong>F<sub>i</sub></strong
+        >.<br />
+        By definition of intersection,
+        <strong>⋃ A<sub>i</sub></strong> with <strong>i=1, n</strong> is also in
+        <strong>⋂ F<sub>i</sub> = F</strong>.
+      </p>
+
+      <p>
+        Conclusion: <strong>F</strong> is also a sigma algebra of
+        <strong>X</strong>.
+      </p>
+    </div>
+  </body>
+</html>
