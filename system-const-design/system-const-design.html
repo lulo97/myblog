@@ -1,0 +1,58 @@
+<h1>System Const Design</h1>
+
+<h2>First Problem</h2>
+<p>
+    Suppose in a system we want to store consts. For example, in CUSTOMER table
+    have TYPE column specify Normal customer or Vip customer.
+</p>
+
+<p>
+    Problem: What if in the future we want to change name of Normal customer to
+    Standard customer. Update all rows of CUSTOMER table is a bad idea.
+</p>
+
+<p>
+    Solution: Create another table CONST with columns (Id, Key, Value) have rows
+    (1, N, Normal) and (2, V, Vip) and CUSTOMER.TYPE contains values 'N', 'V'.
+    So for change name of type, we only need to change (1, N, Normal) to (1, N,
+    Standard).
+</p>
+
+<h2>Second Problem</h2>
+<p>What if we want to add language depend for CONST table.</p>
+<p>Solution: Make a CONST table with columns (Id, Key, Value, Language).</p>
+<p>
+    <div>Example for adding English and Vietnamese for customer type:</div>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Key</td>
+            <td>Value</td>
+            <td>Language</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>N</td>
+            <td>Normal</td>
+            <td>en</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>N</td>
+            <td>Bình thường</td>
+            <td>vi</td>
+        </tr>
+    </table>
+</p>
+<p>Make sure to Language column of CONST table follow ISO 639-1 standard.</p>
+
+<h2>Another solution for Second Problem</h2>
+<p>Create CONST(Id, Key) table and TRANSLATION(Id, Language, Value) with relation one row of table CONST have many rows of table TRANSLATION</p>
+
+<h2>Bonus</h2>
+<p>Create table CONST(Id, Key, Value, Language, Description, Namespace) with Description to store information about const and namespace to group related consts.</p>
+<p>Adding a function getConst(Key, Language) for get value of key depend on languge. Make sure to handle case when Key, Language input don't exist on CONST table.</p>
+
+<h2>Example</h2>
+<p>SELECT Id, Name, getConst(Type, 'en') from CUSTOMER;</p>
+<p>SELECT Id, Name, co.VALUE from CUSTOMER cu LEFT JOIN CONST co on cu.TYPE = co.KEY and co.LANGUAGE = 'en';</p>
